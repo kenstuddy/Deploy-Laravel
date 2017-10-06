@@ -18,5 +18,6 @@ echo 'export PATH="$HOME/.config/composer/vendor/bin:$PATH"' >> ~/.bashrc
 sudo chown -R ken /home/ken
 sudo chown -R ken /var/www/html
 composer global require "laravel/installer"
-sudo chmod 744 -R /var/www/html
+find /var/www/html \( -type f -execdir chmod 644 {} \; \) \
+                  -o \( -type d -execdir chmod 711 {} \; \)
 sudo chown -R www-data:www-data /var/www/html
