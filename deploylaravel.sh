@@ -31,19 +31,19 @@ sudo chown -R www-data:www-data /var/www/html
 
 #adding the laravel command to zsh if zsh is installed
 if [ -e "$HOME/.zshrc" ]; then
-    if grep -lir ".composer/vendor/bin" "$HOME/.zshrc"
+    if grep -lir ".config/composer/vendor/bin" "$HOME/.zshrc"
     then
         echo ""
     else
-        echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.zshrc
+        echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.zshrc
         source $HOME/.zshrc
     fi
 fi
 #adding the laravel command to bash
-if grep -lir ".composer/vendor/bin" "$HOME/.bashrc"
+if grep -lir ".config/composer/vendor/bin" "$HOME/.bashrc"
 then
     echo ""
 else
-    echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
+    echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc
     source $HOME/.bashrc
 fi
