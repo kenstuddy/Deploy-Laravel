@@ -35,6 +35,7 @@ if [ -e "$HOME/.zshrc" ]; then
     then
         echo ""
     else
+        exec bash
         echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.zshrc
         source $HOME/.zshrc
     fi
