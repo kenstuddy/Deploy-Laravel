@@ -1,5 +1,12 @@
 #!/bin/bash
 #Warning: Do not run this script as root. See: https://getcomposer.org/doc/faqs/how-to-install-untrusted-packages-safely.md
+
+if [ "$EUID" -eq 0 ]
+then 
+    echo "Do not run this script as root. See: https://getcomposer.org/doc/faqs/how-to-install-untrusted-packages-safely.md"
+    exit
+fi
+
 EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
@@ -15,8 +22,28 @@ php composer-setup.php --quiet
 RESULT=$?
 rm composer-setup.php
 sudo mv composer.phar /usr/local/bin/composer
-echo 'export PATH="$HOME/.config/composer/vendor/bin:$PATH"' >> ~/.bashrc
+#since we cannot run this script as root, whoami is safe to use here
+sudo chown -R $(whoami) $HOME
 composer global require "laravel/installer"
 find /var/www/html \( -type f -execdir chmod 644 {} \; \) \
                   -o \( -type d -execdir chmod 711 {} \; \)
 sudo chown -R www-data:www-data /var/www/html
+
+#adding the laravel command to zsh if zsh is installed
+if [ -e "$HOME/.zshrc" ]; then
+    if grep -lir ".composer/vendor/bin" "$HOME/.zshrc"
+    then
+        echo ""
+    else
+        echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.zshrc
+        source $HOME/.zshrc
+    fi
+fi
+#adding the laravel command to bash
+if grep -lir ".composer/vendor/bin" "$HOME/.bashrc"
+then
+    echo ""
+else
+    echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
+    source $HOME/.bashrc
+fi
