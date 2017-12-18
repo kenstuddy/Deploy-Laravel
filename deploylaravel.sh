@@ -25,7 +25,7 @@ sudo mv composer.phar /usr/local/bin/composer
 #since we cannot run this script as root, whoami is safe to use here
 sudo chown -R $(whoami) $HOME
 composer global require "laravel/installer"
-find /var/www/html \( -type f -execdir chmod 644 {} \; \) \
+sudo find /var/www/html \( -type f -execdir chmod 644 {} \; \) \
                   -o \( -type d -execdir chmod 711 {} \; \)
 sudo chown -R www-data:www-data /var/www/html
 
