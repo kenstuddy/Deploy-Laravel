@@ -22,14 +22,14 @@ php composer-setup.php --quiet
 RESULT=$?
 rm composer-setup.php
 sudo mv composer.phar /usr/local/bin/composer
-#since we cannot run this script as root, whoami is safe to use here
+#Since we cannot run this script as root, whoami is safe to use here.
 sudo chown -R $(whoami) $HOME
 composer global require "laravel/installer"
 sudo find /var/www/html \( -type f -execdir chmod 644 {} \; \) \
                   -o \( -type d -execdir chmod 711 {} \; \)
 sudo chown -R www-data:www-data /var/www/html
 
-#adding the laravel command to zsh if zsh is installed
+#Adding the laravel command to zsh if zsh is installed.
 if [ -e "$HOME/.zshrc" ]; then
     if grep -lir ".config/composer/vendor/bin" "$HOME/.zshrc"
     then
@@ -39,7 +39,7 @@ if [ -e "$HOME/.zshrc" ]; then
         source $HOME/.zshrc
     fi
 fi
-#adding the laravel command to bash
+#Adding the laravel command to bash.
 if grep -lir ".config/composer/vendor/bin" "$HOME/.bashrc"
 then
     echo ""
