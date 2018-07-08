@@ -28,7 +28,7 @@ composer global require "laravel/installer"
 sudo find /var/www/html \( -type f -execdir chmod 644 {} \; \) \
                   -o \( -type d -execdir chmod 711 {} \; \)
 sudo chown -R www-data:www-data /var/www/html
-
+sudo a2enmod rewrite
 #Adding the laravel command to zsh if zsh is installed.
 if [ -e "$HOME/.zshrc" ]; then
     if grep -lir ".config/composer/vendor/bin" "$HOME/.zshrc"
