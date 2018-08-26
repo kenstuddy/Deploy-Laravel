@@ -31,19 +31,15 @@ sudo chown -R www-data:www-data /var/www/html
 sudo a2enmod rewrite
 #Adding the laravel command to zsh if zsh is installed.
 if [ -e "$HOME/.zshrc" ]; then
-    if grep -lir ".config/composer/vendor/bin" "$HOME/.zshrc"
+    if ! grep -lir ".config/composer/vendor/bin" "$HOME/.zshrc"
     then
-        echo ""
-    else
         echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.zshrc
         source $HOME/.zshrc
     fi
 fi
 #Adding the laravel command to bash.
-if grep -lir ".config/composer/vendor/bin" "$HOME/.bashrc"
+if ! grep -lir ".config/composer/vendor/bin" "$HOME/.bashrc"
 then
-    echo ""
-else
     exec bash
     echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc
     source $HOME/.bashrc
