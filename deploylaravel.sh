@@ -34,6 +34,8 @@ if [ -e "$HOME/.zshrc" ]; then
     if ! grep -lir ".config/composer/vendor/bin" "$HOME/.zshrc"
     then
         echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.zshrc
+        #Adding a custom laravel command (laravelv) to zsh.
+        echo 'function laravelv() { if [[ $1 == "" || $2 == "" ]]; then echo "Usage: laravelv projectname laravelversion"; else composer create-project laravel/laravel="$2.*" "$1"; fi }' >> $HOME/.zshrc
         source $HOME/.zshrc
     fi
 fi
@@ -42,5 +44,7 @@ if ! grep -lir ".config/composer/vendor/bin" "$HOME/.bashrc"
 then
     exec bash
     echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> ~/.bashrc
+    #Adding a custom laravel command (laravelv) to bash.
+    echo 'function laravelv() { if [[ $1 == "" || $2 == "" ]]; then echo "Usage: laravelv projectname laravelversion"; else composer create-project laravel/laravel="$2.*" "$1"; fi }' >> $HOME/.bashrc
     source $HOME/.bashrc
 fi
