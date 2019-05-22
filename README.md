@@ -2,7 +2,10 @@
 This is a script used for deploying Laravel on Debian-based distributions of Linux (Debian, Ubuntu, etc). 
 
 # Requirements
+One of the following:
+
 Debian 9 or newer
+
 Ubuntu 16.04 or newer
 
 # How To Install
