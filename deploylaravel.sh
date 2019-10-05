@@ -35,7 +35,8 @@ if [ -e "$HOME/.zshrc" ]; then
     then
         echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> $HOME/.zshrc
         #Adding a custom laravel command (laravelv) to zsh.
-        echo 'function laravelv() { if [[ $1 == "" || $2 == "" ]]; then echo "Usage: laravelv projectname laravelversion"; else composer create-project laravel/laravel="$2.*" "$1"; fi }' >> $HOME/.zshrc
+        echo 'function laravelver() { if [[ $1 == "" || $2 == "" ]]; then echo "Usage: laravelver projectname laravelversion"; else composer create-project laravel/laravel="$2.*" "$1"; fi }' >> $HOME/.zshrc
+        echo 'function laravelinit() { composer install && npm install && npm run dev && cp .env.example .env && nano .env && php artisan key:generate && php artisan migrate:fresh && php artisan db:seed && php artisan serve }' >> $HOME/.zshrc
         source $HOME/.zshrc
     fi
 fi
@@ -44,6 +45,7 @@ if ! grep -lir ".config/composer/vendor/bin" "$HOME/.bashrc"
 then
     echo 'export PATH="$PATH:$HOME/.config/composer/vendor/bin"' >> $HOME/.bashrc
     #Adding a custom laravel command (laravelv) to bash.
-    echo 'function laravelv() { if [[ $1 == "" || $2 == "" ]]; then echo "Usage: laravelv projectname laravelversion"; else composer create-project laravel/laravel="$2.*" "$1"; fi }' >> $HOME/.bashrc
+    echo 'function laravelver() { if [[ $1 == "" || $2 == "" ]]; then echo "Usage: laravelver projectname laravelversion"; else composer create-project laravel/laravel="$2.*" "$1"; fi }' >> $HOME/.bashrc
+    echo 'function laravelinit() { composer install && npm install && npm run dev && cp .env.example .env && nano .env && php artisan key:generate && php artisan migrate:fresh && php artisan db:seed && php artisan serve }' >> $HOME/.bashrc
     source $HOME/.bashrc
 fi
